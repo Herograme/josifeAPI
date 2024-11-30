@@ -3,7 +3,7 @@ import app from './app';
 import { RedisConfig } from '@/config';
 import { ServerConsole } from './core';
 
-const PORT = process.env.SERVER_PORT || 3000;
+const PORT = process.env.PORT || 3000;
 let server: any;
 
 async function startServer() {
