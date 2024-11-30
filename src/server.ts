@@ -4,6 +4,7 @@ import { RedisConfig } from '@/config';
 import { ServerConsole } from './core';
 
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || 'localhost';
 let server: any;
 
 async function startServer() {
@@ -14,6 +15,8 @@ async function startServer() {
         console.log('✅ Conexão com Redis estabelecida');
 
         // Iniciar servidor
+        app.set('port', PORT);
+        app.set('host', HOST)
         server = app.listen(PORT, () => {
             console.log(`🚀 Servidor rodando na porta ${PORT}`);
 
@@ -30,7 +33,7 @@ async function startServer() {
 
 
 
-            serverConsole.start();
+            //serverConsole.start();
         });
 
         process.on('SIGTERM', () => shutdown('SIGTERM'));
