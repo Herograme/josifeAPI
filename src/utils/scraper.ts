@@ -14,20 +14,24 @@ type selectors = {
     productImage: string
 };
 
+const proxyConfig = {
+    server: 'http://156.233.84.58:3128'
+};
+
 export const scrapeProduct = async (selectors: selectors, url: string, category: string, featured: boolean): Promise<IProductScraped | undefined> => {
     let browser: Browser | null = null;
 
     try {
         browser = await puppeteer.launch({
             //executablePath: '/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.85/chrome-linux64/chrome',
-            headless: true,
+            headless: false,
             defaultViewport: null,
 
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
-                //`--proxy-server=${proxyConfig.server}`, 
-                //'--ignore-certificate-errors',
+                `--proxy-server=${proxyConfig.server}`,
+                '--ignore-certificate-errors',
             ]
         });
 
