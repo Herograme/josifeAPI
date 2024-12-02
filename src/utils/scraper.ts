@@ -1,5 +1,5 @@
 import { IProductScraped } from "@/models";
-import puppeteer, { Browser, Page, SupportedBrowser } from "puppeteer";
+import puppeteer, { Browser, Page } from "puppeteer";
 
 const userAgents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
