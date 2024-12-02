@@ -21,16 +21,16 @@ export class DataScraper {
     }
 
     public async scrapDataLinks(): Promise<IProductScraped[] | undefined> {
-        console.log("1")
-        console.log("datalinks:")
-        console.log(this.datalinks)
+        //console.log("1")
+        //console.log("datalinks:")
+        //console.log(this.datalinks)
         const allData: IProductScraped[] = [];
         try {
             const max = this.getMax();
-            console.log(`max:${max}`)
+            //console.log(`max:${max}`)
             for (let i = 0; i < max; i++) {
                 this.datalinks.forEach(async (datalink, key, _) => {
-                    console.log("3")
+                    //console.log("3")
                     let siteSelectors
                     switch (key) {
                         case "Magazine":
@@ -42,13 +42,17 @@ export class DataScraper {
                         default:
                             break;
                     }
-                    console.log("4")
-                    if (siteSelectors) {
-                        console.log("datalink:")
-                        console.log(datalink)
+                    //console.log("4")
+                    if (siteSelectors && datalink[i]) {
+                        console.log(`datalink[i]:`)
+                        console.log(datalink[i])
                         const featured = datalink[i]?.feature === "sim" ? true : false;
+                        const category = datalink[i]?.category;
                         const link = datalink[i]?.link;
-                        await scrapeProduct(siteSelectors, link || "", key, featured).catch((error) => { return error }).then((data) => {
+                        await delay(1500)
+                        await scrapeProduct(siteSelectors, link || "", category || "", featured).catch((error) => { return error }).then((data) => {
+                            console.log(`data:`)
+                            console.log(data)
                             allData.push(data)
                         });
                     }
@@ -63,10 +67,11 @@ export class DataScraper {
     }
 
     private getMax() {
-        console.log("2")
+        //console.log("2")
         let max = 0;
         this.datalinks.forEach((datalink, _index, _) => {
-            Math.max(max, datalink.length);
+            console.log(`datalink.length:${datalink.length}`)
+            max = Math.max(max, datalink.length);
         })
         return max;
     }

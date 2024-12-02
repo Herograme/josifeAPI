@@ -35,7 +35,7 @@ export const scrapeProduct = async (selectors: selectors, url: string, category:
 
 
 
-        url = 'https://www.magazineluiza.com.br/smartphone-samsung-galaxy-a15-65-128gb-azul-claro-4g-4gb-ram-cam-tripla-50mp-selfie-13mp-5000mah-dual-chip/p/237216300/te/ga15/';
+        //url = 'https://www.magazineluiza.com.br/smartphone-samsung-galaxy-a15-65-128gb-azul-claro-4g-4gb-ram-cam-tripla-50mp-selfie-13mp-5000mah-dual-chip/p/237216300/te/ga15/';
 
         await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 
