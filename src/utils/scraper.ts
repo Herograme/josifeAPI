@@ -1,5 +1,5 @@
 import { IProductScraped } from "@/models";
-import puppeteer, { Browser, Page } from "puppeteer";
+import puppeteer, { Browser, Page, SupportedBrowser } from "puppeteer";
 
 const userAgents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -19,6 +19,7 @@ export const scrapeProduct = async (selectors: selectors, url: string, category:
 
     try {
         browser = await puppeteer.launch({
+            executablePath: puppeteer.executablePath() || '/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.85/chrome-linux64/chrome',
             headless: true,
             defaultViewport: null,
 
