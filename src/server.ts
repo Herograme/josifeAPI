@@ -33,7 +33,7 @@ async function startServer() {
 
 
 
-            serverConsole.start();
+            //serverConsole.start();
         });
 
         process.on('SIGTERM', () => shutdown('SIGTERM'));

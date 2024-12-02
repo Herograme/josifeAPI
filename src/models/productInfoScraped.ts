@@ -8,4 +8,5 @@ export interface IProductScraped {
     image: string;
     category: string;
     featured?: boolean;
+    link: string;
 }

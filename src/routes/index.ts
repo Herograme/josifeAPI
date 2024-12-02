@@ -62,7 +62,7 @@ const checkerror = (status: string, message: string, res: Response) => {
 
 router.post("/secret/update", async (req: Request<{}, {}, userparam>, res) => {
     const datalinks = new Map<string, IlinkData[]>();
-    const redisConfig = RedisConfig.getInstance();
+
 
 
     try {
@@ -74,16 +74,18 @@ router.post("/secret/update", async (req: Request<{}, {}, userparam>, res) => {
             //console.log(status, message)
             checkerror(status, message || "", res)
 
-            console.log(MagazineData)
+            //console.log(MagazineData)
             datalinks.set("Magazine", MagazineData);
 
             const dataScraper = new DataScraper(datalinks)
 
             await dataScraper.scrapDataLinks().then((data) => {
-
-
-                CategorizeProducts(data || []).forEach((products, category) => {
-                    redisConfig.set(category, JSON.stringify(products));
+                //console.log("data:")
+                //console.log(data)
+                CategorizeProducts(data || []).forEach(async (products, category) => {
+                    //console.log(category)
+                    //console.log(products)
+                    await ProductService.saveProductsByCategory(category, products);
                 })
 
                 res.status(200).json({

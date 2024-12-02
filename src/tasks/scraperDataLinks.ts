@@ -29,7 +29,7 @@ export class DataScraper {
             const max = this.getMax();
             //console.log(`max:${max}`)
             for (let i = 0; i < max; i++) {
-                this.datalinks.forEach(async (datalink, key, _) => {
+                for (const [key, datalink] of this.datalinks) {
                     //console.log("3")
                     let siteSelectors
                     switch (key) {
@@ -44,22 +44,26 @@ export class DataScraper {
                     }
                     //console.log("4")
                     if (siteSelectors && datalink[i]) {
-                        console.log(`datalink[i]:`)
+                        console.log(`----------datalink[i]:----------`)
                         console.log(datalink[i])
-                        const featured = datalink[i]?.feature === "sim" ? true : false;
+                        const featured = this.CheckFeatured(datalink[i]?.feature);
                         const category = datalink[i]?.category;
                         const link = datalink[i]?.link;
-                        await delay(1500)
-                        await scrapeProduct(siteSelectors, link || "", category || "", featured).catch((error) => { return error }).then((data) => {
+                        await delay(randomTime[Math.floor(Math.random() * randomTime.length)] || 2000)
+                        await scrapeProduct(siteSelectors, link || "", category || "", featured).catch((error) => { return error }).then((data: IProductScraped) => {
                             console.log(`data:`)
                             console.log(data)
+
+                            data.price = data.price.replace(/R\$/g, "").replace(/ou/g, "").replace(/ /g, "")
                             allData.push(data)
                         });
                     }
-                })
+
+                }
                 await delay(randomTime[Math.floor(Math.random() * randomTime.length)] || 2000);
             }
-
+            console.log(`allData:`)
+            console.log(allData)
             return allData;
         } catch (error) {
             throw new Error(`error:${error}`);
@@ -74,6 +78,14 @@ export class DataScraper {
             max = Math.max(max, datalink.length);
         })
         return max;
+    }
+
+    private CheckFeatured(featured: string | undefined): boolean {
+        if (!featured) {
+            return false;
+        }
+        const featuredLowerd = featured.toLowerCase()
+        return featuredLowerd === "sim" ? true : false;
     }
 
 }

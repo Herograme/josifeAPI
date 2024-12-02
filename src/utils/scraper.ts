@@ -19,7 +19,7 @@ export const scrapeProduct = async (selectors: selectors, url: string, category:
 
     try {
         browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
             defaultViewport: null,
 
             args: [
@@ -45,7 +45,7 @@ export const scrapeProduct = async (selectors: selectors, url: string, category:
         await page.waitForSelector(selectors.productImage, { timeout: 15000 });
 
         const productName: string = await page.$eval(selectors.productName, el => el.textContent || '');
-        console.log('Nome do produto:', productName);
+        //console.log('Nome do produto:', productName);
 
         const productPrice: string = await page.$eval(selectors.productPrice, el => el.textContent || '');
         //console.log('Preço do produto:', productPrice);
@@ -53,15 +53,17 @@ export const scrapeProduct = async (selectors: selectors, url: string, category:
         const productDescription: string = await page.$eval(selectors.productDescription, el => el.textContent || '');
         //console.log('Descrição do produto:', productDescription);
         const productImage: string = await page.$eval(selectors.productImage, el => el.getAttribute('src') || '');
-        return {
-
-            name: productName,
-            price: productPrice,
-            description: productDescription,
-            image: productImage,
-            category: category,
-            featured: featured
-        }
+        return new Promise((resolve) => {
+            resolve({
+                name: productName,
+                price: productPrice,
+                description: productDescription,
+                image: productImage,
+                category: category,
+                link: url,
+                featured: featured
+            });
+        })
 
     } catch (error) {
         console.error('Erro ao fazer scraping:', (error as Error).message);
