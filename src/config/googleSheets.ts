@@ -1,6 +1,6 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetRow, GoogleSpreadsheetWorksheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
-import creds from "@/etc/secret/hardy-position-396622-ded3816d62fa.json";
+import creds from "@/etc/secrets/hardy-position-396622-ded3816d62fa.json";
 import { IlinkData, IrowData } from "@/models";
 ;
 
