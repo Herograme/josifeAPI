@@ -24,6 +24,8 @@ export const scrapeProduct = async (selectors: selectors, url: string, category:
             defaultViewport: null,
 
             args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
                 //`--proxy-server=${proxyConfig.server}`, 
                 //'--ignore-certificate-errors',
             ]
