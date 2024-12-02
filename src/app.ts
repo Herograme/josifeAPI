@@ -1,6 +1,6 @@
 import express from "express";
-import cors from "cors";
-import helmet from "helmet";
+//import cors from "cors";
+//import helmet from "helmet";
 import routes from "./routes";
 
 
@@ -16,8 +16,9 @@ class App {
 
     private middlewares(): void {
         this.express.use(express.json());
-        this.express.use(cors())
-        this.express.use(helmet())
+        this.express.use(express.urlencoded({ extended: true }))
+        //this.express.use(cors())
+        //this.express.use(helmet())
     }
 
     private routes(): void {
