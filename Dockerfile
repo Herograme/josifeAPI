@@ -6,8 +6,12 @@ WORKDIR /usr/src/josifeapi
 # Install app dependencies
 COPY package*.json ./
     
-
 RUN npm install
+RUN apt-get update && apt-get install -y openssl
+RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y iputils-ping
+
+ENV NODE_OPTIONS="--openssl-legacy-provider"
 
 # Bundle app source
 COPY . .
