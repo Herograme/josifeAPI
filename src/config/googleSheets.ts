@@ -1,6 +1,5 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetRow, GoogleSpreadsheetWorksheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
-import creds from "@/etc/secrets/hardy-position-396622-ded3816d62fa.json";
 import { IlinkData, IrowData } from "@/models";
 ;
 
@@ -17,8 +16,8 @@ export default class GoogleSheets {
     private static instance: GoogleSheets;
     private doc: GoogleSpreadsheet;
 
-    private clientemail = creds.client_email;
-    private privatekey = creds.private_key;;
+    private clientemail = process.env.GOOGLE_CLIENT_EMAIL;
+    private privatekey = process.env.GOOGLE_PRIVATE_KEY;
     private sheetId = process.env.GOOGLE_SHEET_ID;
 
     public static getInstance(): GoogleSheets {
