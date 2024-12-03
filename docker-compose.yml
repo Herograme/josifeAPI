@@ -1,0 +1,13 @@
+version: '1'
+services:
+  api:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/usr/src/josifeapi
+    environment:
+      - .env
+    restart: always
+      
+  
